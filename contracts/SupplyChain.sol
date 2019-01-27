@@ -79,7 +79,7 @@ modifier isOwner(){
    that the item with the given sku has the state ForSale. */
   //modifier forSale
   modifier forSale (uint _sku) {
-    require((items[_sku].state == State.ForSale, "State is not forSale!");
+    require(items[_sku].state == State.ForSale, "State is not forSale!");
     _;
   }
   
@@ -91,7 +91,7 @@ modifier isOwner(){
   
   //modifier shipped
   modifier shipped (unit _sku) {
-    require(items[_sku'.state == State.Shipped, "State is not Shipped!");
+    require(items[_sku].state == State.Shipped, "State is not Shipped!");
     _;
   }
   //modifier received
@@ -123,7 +123,7 @@ modifier isOwner(){
 
   function buyItem(uint sku) 
     public
-    payabale forSale(sku) paidEnough)items[sku].price) checkValue(sku)
+    payable forSale(sku) paidEnough(items[sku].price) checkValue(sku)
   {
     items[sku].seller.transfer(items[sku].price);
     items[sku].state = State.Sold;
@@ -138,7 +138,7 @@ modifier isOwner(){
     sold(sku) 
     verifyCaller(items[sku].seller)
   {
-    items[sku[.state = State.Shipped;
+    items[sku].state = State.Shipped;
     emit Shipped(sku);
   
   }
@@ -155,7 +155,7 @@ modifier isOwner(){
   }
 
   /* We have these functions completed so we can run tests, just ignore it :) */
-  function fetchItem(uint _sku) public view returns (string name, uint sku, uint price, uint state, address seller, address buyer) {
+  function fetchItem(uint _sku) public view returns (string memory name, uint sku, uint price, uint state, address seller, address buyer) {
     name = items[_sku].name;
     sku = items[_sku].sku;
     price = items[_sku].price;
