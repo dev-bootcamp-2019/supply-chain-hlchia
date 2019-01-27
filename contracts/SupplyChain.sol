@@ -59,6 +59,7 @@ contract SupplyChain {
 /* Create a modifer that checks if the msg.sender is the owner of the contract */
 modifier isOwner(){
     require(msg.sender == owner, "User must be owner!");
+    _;
 }
 
   modifier verifyCaller (address _address) { 
@@ -84,13 +85,13 @@ modifier isOwner(){
   }
   
   //modifier sold
-  modifier sold (unit _sku) {
+  modifier sold (uint _sku) {
     require(items[_sku].state == State.Sold, "State is not sold!");
     _;
   }
   
   //modifier shipped
-  modifier shipped (unit _sku) {
+  modifier shipped (uint _sku) {
     require(items[_sku].state == State.Shipped, "State is not Shipped!");
     _;
   }
@@ -108,7 +109,7 @@ modifier isOwner(){
        skuCount = 0;
   }
 
-  function addItem(string _name, uint _price) public returns(bool){
+  function addItem(string memory _name, uint _price) public returns(bool){
     emit ForSale(skuCount);
     items[skuCount] = Item({name: _name, sku: skuCount, price: _price, state: State.ForSale, seller: msg.sender, buyer: address(0)});
     skuCount = skuCount + 1;
